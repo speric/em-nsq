@@ -1,8 +1,9 @@
 module EMNSQ
   class Publisher
     def initialize(host, port)
-      @host = host
-      @port = port
+      @host   = host
+      @port   = port
+      @socket = determine_socket
     end
     
     def publish(*args)
@@ -10,11 +11,11 @@ module EMNSQ
       topic   = options[:topic]
       message = options[:message]
       
-      open_socket
+      @socket.write(MAGIC_V2)
       buffer_to_send = ['PUB ', topic, "\n", message.length, message].pack('a*a*a*Na*') #understand this
       @socket.write(buffer_to_send)
       
-      response = String.new @socket.recv(4096)
+      response = @socket.recv(4096)
       size, frame, nsq_response_message = response.unpack('NNa*')
       
       if response.length == size+4
@@ -30,13 +31,12 @@ module EMNSQ
     
     private
     
-    def open_socket
+    def determine_socket
       if EM.reactor_running?
         @socket = EventMachine::Synchrony::TCPSocket.open(@host, @port)
       else
         @socket = TCPSocket.open(@host, @port)
       end
-      @socket.write(MAGIC_V2)
     end
     
     def parse_response_message(nsq_response_message)
