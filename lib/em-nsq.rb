@@ -2,6 +2,7 @@ $:.unshift(File.dirname(__FILE__) + '/../lib')
 
 require 'em-synchrony'
 require 'em-nsq/publisher'
+require 'em-nsq/reader'
 
 module EMNSQ
   MAGIC_V2 = "  V2"  

@@ -19,7 +19,7 @@ module EMNSQ
       size, frame, nsq_response_message = response.unpack('NNa*')
       
       if response.length == size+4
-        return parse_response_message nsq_response_message
+        parse_response_message nsq_response_message
       elsif response.length > size+4
         raise "Unexpected PUB response - Expected size = #{size} actual size = #{response.length-4}: message=#{nsq_response_message}"
       end
@@ -41,7 +41,7 @@ module EMNSQ
     
     def parse_response_message(nsq_response_message)
       if ["OK", "E_INVALID", "E_BAD_TOPIC", "E_BAD_MESSAGE", "E_PUT_FAILED"].include? nsq_response_message 
-        nsq_response_message #log this?
+        puts nsq_response_message #log this?
       else
         raise "UNKNOWN NSQ PUB RESPONSE: #{nsq_response_message}"
       end
