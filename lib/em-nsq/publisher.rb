@@ -30,17 +30,21 @@ module EMNSQ
     
     private
     
-      def open_socket
+    def open_socket
+      if EM.reactor_running?
         @socket = EventMachine::Synchrony::TCPSocket.open(@host, @port)
-        @socket.write(MAGIC_V2)
+      else
+        @socket = TCPSocket.open(@host, @port)
       end
+      @socket.write(MAGIC_V2)
+    end
     
-      def parse_response_message(nsq_response_message)
-        if ["OK", "E_INVALID", "E_BAD_TOPIC", "E_BAD_MESSAGE", "E_PUT_FAILED"].include? nsq_response_message 
-          nsq_response_message
-        else
-          raise "UNKNOWN NSQ PUB RESPONSE: #{nsq_response_message}"
-        end
+    def parse_response_message(nsq_response_message)
+      if ["OK", "E_INVALID", "E_BAD_TOPIC", "E_BAD_MESSAGE", "E_PUT_FAILED"].include? nsq_response_message 
+        nsq_response_message #log this?
+      else
+        raise "UNKNOWN NSQ PUB RESPONSE: #{nsq_response_message}"
       end
+    end
   end
 end

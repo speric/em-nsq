@@ -1,9 +1,17 @@
-EventMachine-based Ruby client for bitly's NSQ.
+EventMachine-based Ruby client for bitly's NSQ
 ===========
 
 Uses [em-synchrony](https://github.com/igrigorik/em-synchrony).
 
-### Publish
+### Publish synchronously
+```ruby
+require 'em-nsq'
+
+publisher = EMNSQ::Publisher.new("localhost", "4150")
+publisher.publish(:topic => "em-nsq-test", :message => "Hello World")
+publisher.finish
+```
+### Publish asynchronously
 ```ruby
 require 'em-nsq'
 
@@ -14,6 +22,7 @@ EM.synchrony do
   EM.stop
 end
 ```
+
 ### To Do
   * Reader
   * Documentation ([TomDoc](http://tomdoc.org/))
