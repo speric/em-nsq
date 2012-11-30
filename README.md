@@ -5,28 +5,35 @@ Uses [em-synchrony](https://github.com/igrigorik/em-synchrony).
 
 `em-nsq` will detect if it's running inside an EventMachine reactor loop and choose the approriate `TCPSocket` object.  This is transparent to the client programmer. 
 
-### Publish synchronously
+### Publish messages synchronously
 ```ruby
 require 'em-nsq'
 
-publisher = EMNSQ::Publisher.new("localhost", "4150")
+publisher = publisher = EMNSQ::Publisher.new(:host => "localhost", :port => "4150")
 publisher.publish(:topic => "em-nsq-test", :message => "Hello World")
 publisher.finish
 ```
-### Publish asynchronously
+### Publish messages asynchronously
 ```ruby
 require 'em-nsq'
 
 EM.synchrony do
-  publisher = EMNSQ::Publisher.new("localhost", "4150")
+  publisher = publisher = EMNSQ::Publisher.new(:host => "localhost", :port => "4150")
   publisher.publish(:topic => "em-nsq-test", :message => "Hello World")
   publisher.finish
   EM.stop
 end
 ```
+### Process messages asynchronously
+```ruby
+require 'em-nsq'
 
+```
 ### To Do
   * Reader
+  * Validate topic/channel names
+  * Handle NSQ error responses
+  * Log
   * Documentation ([TomDoc](http://tomdoc.org/))
   * Tests
   * Publish gem

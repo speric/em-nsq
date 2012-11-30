@@ -1,17 +1,14 @@
 module EMNSQ
-  class Publisher
-    def initialize(host, port)
-      @host   = host
-      @port   = port
-      @socket = determine_socket
+  class Publisher < EMNSQ::Base
+    def initialize(*args)
+      super
     end
     
     def publish(*args)
       options = args.extract_options!
       topic   = options[:topic]
       message = options[:message]
-      
-      @socket.write(MAGIC_V2)
+
       buffer_to_send = ['PUB ', topic, "\n", message.length, message].pack('a*a*a*Na*') #understand this
       @socket.write(buffer_to_send)
       
@@ -25,20 +22,6 @@ module EMNSQ
       end
     end
         
-    def finish
-      @socket.close
-    end
-    
-    private
-    
-    def determine_socket
-      if EM.reactor_running?
-        @socket = EventMachine::Synchrony::TCPSocket.open(@host, @port)
-      else
-        @socket = TCPSocket.open(@host, @port)
-      end
-    end
-    
     def parse_response_message(nsq_response_message)
       if ["OK", "E_INVALID", "E_BAD_TOPIC", "E_BAD_MESSAGE", "E_PUT_FAILED"].include? nsq_response_message 
         puts nsq_response_message #log this?

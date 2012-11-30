@@ -1,6 +1,7 @@
 $:.unshift(File.dirname(__FILE__) + '/../lib')
 
 require 'em-synchrony'
+require 'em-nsq/base'
 require 'em-nsq/publisher'
 require 'em-nsq/reader'
 
