@@ -9,7 +9,7 @@ Uses [em-synchrony](https://github.com/igrigorik/em-synchrony).
 ```ruby
 require 'em-nsq'
 
-publisher = publisher = EMNSQ::Publisher.new(:host => "localhost", :port => "4150")
+publisher = EMNSQ::Publisher.new(:host => "localhost", :port => "4150")
 publisher.publish(:topic => "em-nsq-test", :message => "Hello World")
 publisher.finish
 ```
@@ -18,7 +18,7 @@ publisher.finish
 require 'em-nsq'
 
 EM.synchrony do
-  publisher = publisher = EMNSQ::Publisher.new(:host => "localhost", :port => "4150")
+  publisher = EMNSQ::Publisher.new(:host => "localhost", :port => "4150")
   publisher.publish(:topic => "em-nsq-test", :message => "Hello World")
   publisher.finish
   EM.stop
