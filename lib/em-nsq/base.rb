@@ -5,18 +5,12 @@ module EMNSQ
       
       @host    = @options[:host]
       @port    = @options[:port]
-      @socket  = determine_socket
+      @socket  = EventMachine::Synchrony::TCPSocket.open(@host, @port)
       @socket.write(MAGIC_V2)
     end
     
     def finish
       @socket.close
-    end
-    
-    private
-    
-    def determine_socket
-      EM.reactor_running? ? EventMachine::Synchrony::TCPSocket.open(@host, @port) : TCPSocket.open(@host, @port)
-    end
+    end    
   end
 end
