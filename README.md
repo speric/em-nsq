@@ -3,6 +3,8 @@ EventMachine-based Ruby client for bitly's NSQ
 
 Uses [em-synchrony](https://github.com/igrigorik/em-synchrony).
 
+Still very much in development mode.  This is my first attempt at using EventMachine, so pull requests are welcome.
+
 ### Publish messages synchronously
 ```ruby
 require 'em-nsq'
