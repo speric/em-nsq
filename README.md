@@ -3,8 +3,6 @@ EventMachine-based Ruby client for bitly's NSQ
 
 Uses [em-synchrony](https://github.com/igrigorik/em-synchrony).
 
-`em-nsq` will detect if it's running inside an EventMachine reactor loop and choose the approriate `TCPSocket` object.  This is transparent to the client programmer. 
-
 ### Publish messages synchronously
 ```ruby
 require 'em-nsq'
