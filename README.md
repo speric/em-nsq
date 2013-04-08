@@ -39,6 +39,7 @@ require 'em-nsq'
   * Publish gem
 
 ### Docs
+  * [Building Client Libraries](https://github.com/mreiferson/nsq/blob/3c1172f152c469734b7f41875cd8ba67bc3e3d9b/docs/building_client_libraries.md)
   * [NSQ: realtime distributed message processing at scale](http://word.bitly.com/post/33232969144/nsq)
   * [NSQ Protocol](https://github.com/bitly/nsq/blob/master/docs/protocol.md)
   * [NSQ Architecture Presentation](https://speakerdeck.com/snakes/nsq-nyc-golang-meetup)
