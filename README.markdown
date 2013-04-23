@@ -1,5 +1,3 @@
-= em-nsq
-
 EventMachine-based Ruby client for bitly's NSQ
 ===========
 
